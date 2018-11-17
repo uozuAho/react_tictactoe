@@ -5,14 +5,10 @@ interface ISquareProps {
     onClick: () => void;
 }
 
-export class Square extends React.Component<ISquareProps> {
-
-    public render() {
-        return (
-            // tslint:disable-next-line:jsx-no-lambda
-            <button className="square" onClick={() => this.props.onClick()}>
-                {this.props.value}
-            </button>
-        );
-    }
+export function Square(props: ISquareProps) {
+    return (
+      <button className="square" onClick={props.onClick}>
+        {props.value}
+      </button>
+    );
 }
