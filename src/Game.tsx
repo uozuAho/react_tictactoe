@@ -8,6 +8,7 @@ interface ISquaresState {
 interface IGameState {
     history: ISquaresState[];
     xIsNext: boolean;
+    stepNumber: number;
 }
 
 export class Game extends React.Component<{}, IGameState> {
@@ -18,13 +19,14 @@ export class Game extends React.Component<{}, IGameState> {
           history: [{
             squares: Array(9).fill(null),
           }],
+          stepNumber: 0,
           xIsNext: true,
         };
     }
 
     public render() {
         const history = this.state.history;
-        const current = history[history.length - 1];
+        const current = history[this.state.stepNumber];
         const winner = this.calculateWinner(current.squares);
 
         let status;
@@ -33,6 +35,19 @@ export class Game extends React.Component<{}, IGameState> {
         } else {
             status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
         }
+
+        const moves = history.map((step, move) => {
+            const desc = move ?
+              'Go to move #' + move :
+              'Go to game start';
+            return (
+              <li key={move}>
+                <button
+                    // tslint:disable-next-line:jsx-no-lambda
+                    onClick={() => this.jumpTo(move)}>{desc}</button>
+              </li>
+            );
+        });
 
         return (<div className="game">
             <div className="game-board">
@@ -43,7 +58,7 @@ export class Game extends React.Component<{}, IGameState> {
             </div>
             <div className="game-info">
                 <div>{status}</div>
-                <ol />
+                <ol>{moves}</ol>
             </div>
         </div>);
     }
@@ -69,8 +84,8 @@ export class Game extends React.Component<{}, IGameState> {
     }
 
     private handleClick(i: number) {
-        const history = this.state.history;
-        const current = history[history.length - 1];
+        const history = this.state.history.slice(0, this.state.stepNumber + 1);
+        const current = history[this.state.stepNumber];
         const squares = current.squares.slice();
         if (this.calculateWinner(squares) || squares[i]) {
           return;
@@ -78,7 +93,15 @@ export class Game extends React.Component<{}, IGameState> {
         squares[i] = this.state.xIsNext ? 'X' : 'O';
         this.setState({
           history: history.concat([{squares}]),
+          stepNumber: history.length,
           xIsNext: !this.state.xIsNext,
+        });
+    }
+
+    private jumpTo(step: number) {
+        this.setState({
+          stepNumber: step,
+          xIsNext: (step % 2) === 0,
         });
     }
 }
