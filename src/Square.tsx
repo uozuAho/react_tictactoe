@@ -1,29 +1,18 @@
 import * as React from 'react';
 
 interface ISquareProps {
-    value: number;
-}
-
-interface ISquareState {
     value: string;
+    onClick: () => void;
 }
 
-export class Square extends React.Component<ISquareProps, ISquareState> {
-
-    constructor(props: ISquareProps) {
-        super(props);
-        this.state = {
-            value: ''
-        };
-    }
+export class Square extends React.Component<ISquareProps> {
 
     public render() {
         return (
-            <button className="square" onClick={this.onclick}>
-                {this.state.value}
+            // tslint:disable-next-line:jsx-no-lambda
+            <button className="square" onClick={() => this.props.onClick()}>
+                {this.props.value}
             </button>
         );
     }
-
-    private onclick = () => this.setState({value: 'X'});
 }
