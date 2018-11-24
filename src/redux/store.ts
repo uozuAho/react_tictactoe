@@ -10,15 +10,17 @@ interface ISquaresState {
     squares: string[];
 }
 
-const initialState: IAppState = {
-    history: [],
-    stepNumber: 0,
-    xIsNext: true,
-};
+export function createInitialState(): IAppState {
+    return {
+        history: [{squares: Array(9).fill(null)}],
+        stepNumber: 0,
+        xIsNext: true,
+    };
+}
 
 export function getStore(): Store<IAppState, any> {
     if (!_store) {
-        _store = createStore(reducer, initialState);
+        _store = createStore(reducer, createInitialState());
     }
     return _store;
 }
