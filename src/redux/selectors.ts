@@ -1,7 +1,7 @@
 import {createSelector} from 'reselect';
 import { IAppState } from './store';
 
-const getCurrentSquares = (state: IAppState) => state.history[state.stepNumber].squares;
+export const getCurrentSquares = (state: IAppState) => state.history[state.stepNumber].squares;
 
 /** Returns winner (X or O), or null if no winner */
 export const getWinner = createSelector(getCurrentSquares, squares => calculateWinner(squares));
