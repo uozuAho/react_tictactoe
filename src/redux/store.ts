@@ -19,8 +19,15 @@ export function createInitialState(): IAppState {
 }
 
 export function getStore(): Store<IAppState, any> {
+
+    const w = window as any;
+
     if (!_store) {
-        _store = createStore(reducer, createInitialState());
+        _store = createStore(
+            reducer,
+            createInitialState(),
+            w.__REDUX_DEVTOOLS_EXTENSION__ && w.__REDUX_DEVTOOLS_EXTENSION__()
+        );
     }
     return _store;
 }

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { ClickAction } from './redux/actions';
+import { clickAction } from './redux/actions';
 import { getCurrentSquares } from './redux/selectors';
 import { IAppState } from './redux/store';
 
@@ -41,7 +41,7 @@ function mapStateToProps(state: IAppState, ownProps: {squareNum: number}): IData
 
 function mapDispatchToProps(dispatch: Dispatch, ownProps: IDataProps): IDispatchProps {
     return {
-        onClick: () => dispatch(new ClickAction(ownProps.squareNum))
+        onClick: () => dispatch(clickAction(ownProps.squareNum))
     };
 }
 

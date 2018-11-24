@@ -1,4 +1,4 @@
-import { ClickAction } from './actions';
+import { clickAction } from './actions';
 import { handleClick } from './reducers';
 import { createInitialState } from "./store";
 
@@ -20,7 +20,7 @@ describe('reducers', () => {
 
         it('should do all the things', () => {
             // act: click on square 1
-            const nextState = handleClick(initialState, new ClickAction(1));
+            const nextState = handleClick(initialState, clickAction(1));
 
             expect(nextState.history.length).toBe(2);
             expect(nextState.history[1].squares[1]).toBe('X');
