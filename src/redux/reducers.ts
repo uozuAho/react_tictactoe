@@ -1,7 +1,7 @@
-import { Click } from './actions';
+import { ClickAction } from './actions';
 import { IAppState } from './store';
 
-export function handleClick(state: IAppState, click: Click): IAppState {
+export function handleClick(state: IAppState, click: ClickAction): IAppState {
     // copied from Game.handleClick
     const history = state.history.slice(0, state.stepNumber + 1);
     const current = history[state.stepNumber];
