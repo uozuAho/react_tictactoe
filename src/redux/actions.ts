@@ -1,6 +1,11 @@
-interface IAction {
+// want action type at top:
+// tslint:disable:object-literal-sort-keys
+
+export interface IAction {
     type: string;
 }
+
+export const CLICK = 'CLICK';
 
 export interface IClickAction extends IAction {
     squareNum: number;
@@ -8,15 +13,7 @@ export interface IClickAction extends IAction {
 
 export function clickAction(squareNum: number): IClickAction {
     return {
-        type: 'CLICK',
-        // tslint:disable-next-line:object-literal-sort-keys
+        type: CLICK,
         squareNum,
     }
 }
-
-// export class ClickAction implements IAction {
-
-//     public readonly type = 'CLICK';
-
-//     constructor(public squareNum: number) {}
-// }

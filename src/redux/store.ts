@@ -1,4 +1,6 @@
 import { createStore, Store } from 'redux';
+import { IAction } from './actions';
+import { globalReducer } from './reducers';
 
 export interface IAppState {
     history: ISquaresState[];
@@ -18,22 +20,18 @@ export function createInitialState(): IAppState {
     };
 }
 
-export function getStore(): Store<IAppState, any> {
+export function getStore(): Store<IAppState, IAction> {
 
     const w = window as any;
 
     if (!_store) {
         _store = createStore(
-            reducer,
+            globalReducer,
             createInitialState(),
             w.__REDUX_DEVTOOLS_EXTENSION__ && w.__REDUX_DEVTOOLS_EXTENSION__()
         );
     }
     return _store;
-}
-
-function reducer(store: IAppState, action: any): IAppState {
-    return store;
 }
 
 // tslint:disable-next-line:variable-name
