@@ -1,4 +1,5 @@
 import { CLICK, IAction, IClickAction } from './actions';
+import { getWinner } from './selectors';
 import { IAppState } from './store';
 
 export function globalReducer(state: IAppState, action: IAction): IAppState {
@@ -11,6 +12,10 @@ export function globalReducer(state: IAppState, action: IAction): IAppState {
 }
 
 export function handleClick(state: IAppState, click: IClickAction): IAppState {
+    if (getWinner(state)) {
+        return state;
+    }
+
     const history = state.history.slice(0, state.stepNumber + 1);
     const current = history[state.stepNumber];
     const squares = current.squares.slice();
